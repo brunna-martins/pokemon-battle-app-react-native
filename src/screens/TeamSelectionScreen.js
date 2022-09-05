@@ -5,6 +5,11 @@ import CustomText from "../components/CustomText";
 import PokemonList from "../components/PokemonList";
 import ActionList from "../components/ActionList";
 
+import { connect } from react-redux;
+
+import { setTeam, setPokemon } from "../actions";
+import moves_data from "../data/moves_data";
+
 // todo: import Redux packages
 // todo: import actions
 // todo: import helper functions
@@ -38,10 +43,34 @@ class TeamSelectionScreen extends Component {
 }
 
 // todo: add mapStateToProps (current pokemon, selected pokemon)
+const mapStateToProps = ({ team_selection }) => {
+  const { pokemon, selected_pokemon } = team_selection;
+
+  return {
+    pokemon,
+    selected_pokemon
+  };
+};
 
 // todo: add mapDispatchToProps (set team, set current pokemon)
+const mapDispatchToProps = dispatch => {
+  return {
+    setTeam: team => {
+      dispatch(setTeam(team));
+    },
+    setPokemon: pokemon => {
+      dispatch(setPokemon(pokemon));
+    }
+  };
+};
+
 
 export default TeamSelectionScreen; // todo: turn component into a connected component
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TeamSelectionScreen);
 
 const styles = {
   container: {

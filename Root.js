@@ -7,11 +7,19 @@ import TeamSelectionScreen from "./src/screens/TeamSelectionScreen";
 
 import Reactotron from "reactotron-react-native";
 
+import { Provider } from "react-redux";
+
+import { compose, createStore } from "redux";
+import reducers from "./src/reducers";
+
+
 // todo: import Redux packages
 // todo: import reducers
 
-Reactotron.configure({ host: "YOUR_INTERNAL_IP_ADDRESS" }) // 192.168.254.108
+import { reactotronRedux } from "reactotron-redux";
+Reactotron.configure({ host: "177.133.31.211" }) // 192.168.254.108
   .useReactNative()
+  .use(reactotronRedux())
   .connect(); // todo: add
 
 console.ignoredYellowBox = ["Setting a timer"];
@@ -31,8 +39,11 @@ const RootStack = createStackNavigator(
 
 class Router extends Component {
   render() {
-    // todo: wrap in Provider component and pass store as prop
-    return <RootStack />;
+    return (
+      <Provider store={store}>
+        <RootStack/>
+      </Provider>
+    );
   }
 }
 
